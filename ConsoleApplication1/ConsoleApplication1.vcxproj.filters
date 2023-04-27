@@ -15,10 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ConsoleApplication1.c">
+    <ClCompile Include="20230426.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="FileName.c">
+    <ClCompile Include="20230427.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
