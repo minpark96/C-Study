@@ -1,1 +1,2 @@
 D:\Work\C\ConsoleApplication1\Debug\ConsoleApplication1.exe
+C:\Users\phm33\source\repos\C-Study\ConsoleApplication1\Debug\ConsoleApplication1.exe
