@@ -284,87 +284,123 @@
 
 #pragma endregion
 
-void MyCalculator();
-int ChooseOperation();
-int InputInteger(int type);
-void OutputFunc(int res);
-int Add(int x, int y);
-int Sub(int x, int y);
-int Mul(int x, int y);
-int Div(int x, int y);
+#pragma region 연습 문제 사칙연산
+
+//void MyCalculator();
+//int ChooseOperation();
+//int InputInteger(int type);
+//void OutputFunc(int res);
+//int Add(int x, int y);
+//int Sub(int x, int y);
+//int Mul(int x, int y);
+//int Div(int x, int y);
+//
+//int main()
+//{
+//	MyCalculator();
+//
+//	return 0;
+//}
+//
+//void MyCalculator()
+//{
+//	int type;
+//	do
+//	{
+//		type = ChooseOperation();
+//		int res = InputInteger(type);
+//		OutputFunc(res);
+//	} while (type);
+//}
+//
+//int ChooseOperation()
+//{
+//	int input;
+//	printf(" 원하는 연산을 선택하세요 : \n 1:덧셈, 2:뺄셈, 3:곱셈, 4:나눗셈, 0:종료\n ");
+//	scanf("%d", &input);
+//	return input;
+//}
+//
+//int InputInteger(int type)
+//{
+//	int input1, input2;
+//	printf(" 두 정수를 입력하시오 : ");
+//	scanf("%d%d", &input1, &input2);
+//
+//	switch (type)
+//	{
+//	case 1:
+//		return Add(input1, input2);
+//	case 2:
+//		return Sub(input1, input2);
+//	case 3:
+//		return Mul(input1, input2);
+//	case 4:
+//		return Div(input1, input2);
+//	default:
+//		return 0;
+//	}
+//}
+//
+//void OutputFunc(int res)
+//{
+//	printf(" 결과는 %d 입니다.\n", res);
+//}
+//
+//int Add(int x, int y)
+//{
+//	return x + y;
+//}
+//
+//int Sub(int x, int y)
+//{
+//	return x - y;
+//}
+//
+//int Mul(int x, int y)
+//{
+//	return x * y;
+//}
+//
+//int Div(int x, int y)
+//{
+//	return x / y;
+//}
+
+#pragma endregion
+
+
+#pragma region 달팽이 연습
 
 int main()
 {
-	MyCalculator();
+	int child = 1, adult = 0;
+	int sum = 1, temp;
+
+	for (int i = 12; i > 0; i--)
+	{
+		temp = adult;
+		adult = child + adult;
+		child = temp;
+		sum = child + adult;
+	}
+
+	printf("달퐁이:%d\n", sum);
+
+
+
+
+
 
 	return 0;
 }
 
-void MyCalculator()
-{
-	while (1)
-	{
-		int type = ChooseOperation();
-		if (!type)
-			break;
-		int res = InputInteger(type);
-		OutputFunc(res);
-	}
-}
 
-int ChooseOperation()
-{
-	int input;
-	printf(" 원하는 연산을 선택하세요 : \n 1:덧셈, 2:뺄셈, 3:곱셈, 4:나눗셈, 0:종료\n ");
-	scanf("%d", &input);
-	return input;
-}
 
-int InputInteger(int type)
-{
-	int input1, input2;
-	printf(" 두 정수를 입력하시오 : ");
-	scanf("%d%d", &input1, &input2);
+#pragma endregion
 
-	switch (type)
-	{
-		case 1:
-			return Add(input1, input2);
-		case 2:
-			return Sub(input1, input2);
-		case 3:
-			return Mul(input1, input2);
-		case 4:
-			return Div(input1, input2);
-		default:
-			;
-	}
-}
 
-void OutputFunc(int res)
-{
-	printf(" 결과는 %d 입니다.\n", res);
-}
 
-int Add(int x, int y)
-{
-	return x + y;
-}
-
-int Sub(int x, int y)
-{
-	return x - y;
-}
-
-int Mul(int x, int y)
-{
-	return x * y;
-}
-
-int Div(int x, int y)
-{
-	return x / y;
-}
 
 
 
