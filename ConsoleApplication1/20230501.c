@@ -137,47 +137,47 @@ int main()
 
 #pragma region 연습 문제5
 
-	int inputN, temp, numLoop;
-	const int numPrint = 4, numStart = 2;
+	int inputN;
+	const int MAX_COLUMNS = 5, NUM_START = 2, NUM_END = 18;
 
-
-	printf(" N을 입력하세요 (2이상 ~ 18이하) : ");
+	printf(" N을 입력하세요 (%d이상 ~ %d이하) : ", NUM_START, NUM_END);
 	scanf("%d", &inputN);
 
-	if (inputN < 2 || inputN > 18)
+	if (inputN < NUM_START || inputN > NUM_END) // 입력 예외 처리
 	{
-		printf(" 2이상 ~ 18이하 값을 입력하세요! ");
+		printf(" %d이상 ~ %d이하 값을 입력하세요! ", NUM_START, NUM_END);
 		return 0;
 	}
 
-	temp = inputN;
+	printf("\n 한 라인에 출력할 수 있는 단 수 : %d / 시작 단 : %d / 최대 계산 가능한 단 : %d\n\n", MAX_COLUMNS, NUM_START, NUM_END);
 
-	printf("\t\t   구 구 단\n");
-
-	for (int i = numStart; i <= inputN; i += numPrint)
+	for (int m = 0; m < MAX_COLUMNS - 1; m++) // MAX_COLUMNS - 1번 만큼 타이틀 옆 공백 출력
 	{
-		if ((temp - numStart) / numPrint > 0)
-		{
-			numLoop = numPrint;
-		}
-		else
-		{
-			numLoop = temp % numPrint + temp % numStart;
-		}
-		printf("-------------------------------------------------\n");
+		printf("         ");
+	}
 
-		for (int j = 1; j < 10; j++)
+	printf("구 구 단\n");
+
+	for (int i = NUM_START; i <= inputN; i += MAX_COLUMNS) // i => MAX_COLUMNS씩 증가
+	{
+		for (int n = 0; n < MAX_COLUMNS; n++)  // MAX_COLUMNS번 만큼 "-" 묶음 출력
+		{
+			printf("-----------------");
+		}
+
+		printf("\n");
+
+		for (int j = 1; j < 10; j++) // 1 ~ 9까지 행 출력 => 구구단
 		{
 
-			for (int k = 0; k < numLoop; k++)
+			for (int k = i; k < i + MAX_COLUMNS; k++) // 마지막 줄 제외 MAX_COLUMNS번 만큼 열 출력
 			{
-				printf("%2d  x %2d = %3d   ", i + k, j, (i + k) * j);
+				if (k <= inputN) // 마지막인지 체크
+					printf("%2d  x %2d = %3d   ", k, j, k * j);
 			}
 
 			printf("\n");
 		}
-
-		temp -= numPrint;
 	}
 	
 
