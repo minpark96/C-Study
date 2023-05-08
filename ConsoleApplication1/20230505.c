@@ -332,13 +332,14 @@ int main()
 
 	while (1)
 	{
-		res = scanf("%c", &ch);
-		if (ch == '\n')
-		{
-			count = 0;
-		}
+		/*res = scanf("%c", &ch);
+		if (ch == '\n') count = 0;
 		else ++count;
 		if (res == EOF) break;
+		if (count > max) max = count;*/
+		ch = getchar();
+		if (ch == EOF) break;
+		else count++;
 		if (count > max) max = count;
 	}
 
