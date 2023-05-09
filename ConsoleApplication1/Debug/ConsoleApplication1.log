@@ -1,2 +1,3 @@
 ﻿  20230508.c
-  ConsoleApplication1.vcxproj -> D:\Work\C\ConsoleApplication1\Debug\ConsoleApplication1.exe
+C:\Users\phm33\source\repos\C-Study\ConsoleApplication1\20230508.c(341,20): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  ConsoleApplication1.vcxproj -> C:\Users\phm33\source\repos\C-Study\ConsoleApplication1\Debug\ConsoleApplication1.exe

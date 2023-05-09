@@ -240,104 +240,140 @@
 //	else return 0;
 //}
 
+#pragma region 문자 순서 바꾸기
+
 //int my_strcmp(char* pa, char* pb);
+//void to_lowercase(char* pa, char* pb);
+//void swap(char* pa, char* pb);
+//void line_up(char* first, char* second, char* third);
 //
 //int main()
 //{
 //	char str1[80], str2[80], str3[80];
-//	char* first = str1, *second = str2, *third = str3;
-//	char* temp;
 //
 //	printf("세 단어 입력 : ");
 //	scanf("%s%s%s", str1, str2, str3);
-//
-//	if (my_strcmp(first, second) > 0)
-//	{
-//		temp = first;
-//		first = second;
-//		second = temp;
-//	}
-//
-//	if (my_strcmp(second, third) > 0)
-//	{
-//		temp = second;
-//		second = third;
-//		third = temp;
-//	}
-//
-//	if (my_strcmp(first, second) > 0)
-//	{
-//		temp = first;
-//		first = second;
-//		second = temp;
-//	}
-//
-//	printf("%s, %s, %s\n", first, second, third);
-//
+//	line_up(str1, str2, str3);
+//	printf("%s, %s, %s\n", str1, str2, str3);
 //
 //	return 0;
 //}
 //
 //int my_strcmp(char* pa, char* pb)
 //{
-//	char tempA;
-//	char tempB;
+//	char tempA[80] = "";
+//	char tempB[80] = "";
+//	int i = 0;
 //
-//	while (*pa == *pb && *pa != '\0')
+//	strcpy(tempA, pa);
+//	strcpy(tempB, pb);
+//
+//	to_lowercase(tempA, tempB);
+//
+//	while (tempA[i] == tempB[i] && tempA[i] != '\0')
+//		i++;
+//
+//	if (tempA[i] > tempB[i]) return 1;
+//	else if (tempA[i] < tempB[i]) return -1;
+//	else
 //	{
+//		while (*pa == *pb && *pa != '\0')
+//		{
+//			pa++;
+//			pb++;
+//		}
+//
+//		if (*pa <= 90 && *pa >= 65) return -1;
+//		if (*pb <= 90 && *pb >= 65) return 1;
+//		return 0;
+//	}
+//}
+//
+//void to_lowercase(char *pa, char *pb)
+//{
+//	while ((*pa != '\0') || (*pb != '\0'))
+//	{
+//		if (*pa <= 90 && *pa >= 65) *pa += 32;
+//		if (*pb <= 90 && *pb >= 65) *pb += 32;
+//
 //		pa++;
 //		pb++;
 //	}
+//}
 //
-//	tempA = *pa;
-//	tempB = *pb;
+//void swap(char *pa, char *pb)
+//{
+//	char temp[80];
+//	strcpy(temp, pa);
+//	strcpy(pa, pb);
+//	strcpy(pb, temp);
+//}
 //
-//	if (*pa <= 90)
-//	{
-//		tempA += 32;
-//		if (tempA == tempB) return -1;
-//	}
-//	
-//	if (*pb <= 90)
-//	{
-//		tempB += 32;
-//		if (tempA == tempB) return 1;
-//	}
+//void line_up(char* first, char* second, char* third)
+//{
+//	if (my_strcmp(first, second) > 0)
+//		swap(first, second);
 //
-//	if (tempA > tempB) return 1;
-//	else if (tempA < tempB) return -1;
-//	else return 0;
+//	if (my_strcmp(second, third) > 0)
+//		swap(second, third);
+//
+//	if (my_strcmp(first, second) > 0)
+//		swap(first, second);
 //}
 
-//int main()
-//{
-//	char str[80] = "I am a Hello World!. I'm happy!";
-//	char temp[80] = "";
-//	int length = 0;
-//	char* address = 0;
-//
-//	/*fgets(str, sizeof(str), stdin);
-//	str[strlen(str) - 1] = '\0';*/
-//
-//	for (int i = 0; i < strlen(str); i++)
-//	{
-//		if (!strncmp(str + i, "Hello World!", strlen("Hello World!")))
-//		{
-//			address = &str[i];
-//			length = i;
-//			break;
-//		}
-//	}
-//	strncpy(temp, str, length);
-//	strncat(temp, "boy", strlen("boy"));
-//	strcat(temp, address + strlen("Hello World!"));
-//	strcpy(str, temp);
-//
-//	printf("Hello World! 위치 주소 : %p\n", address);
-//	printf("바뀐 문자열 : %s\n", str);
-//
-//	return 0;
-//}
+#pragma endregion
+
+#pragma region 문자열 바꾸기
+
+void input_string(char* str);
+
+int main()
+{
+	char strInput[80];
+	char strTarget[80];
+	char strChange[80];
+	char temp[80] = "";
+	int length = 0;
+	char* address = 0;
+
+	printf("문자열을 입력하세요 : ");
+	input_string(strInput);
+	printf("찾을 단어를 입력하세요 : ");
+	input_string(strTarget);
+	printf("변경할 단어를 입력하세요 : ");
+	input_string(strChange);
+
+
+	for (int i = 0; i < strlen(strInput); i++)
+	{
+		if (!strncmp(strInput + i, strTarget, strlen(strTarget)))
+		{
+			address = &strInput[i];
+			length = i;
+			break;
+		}
+	}
+
+	strncpy(temp, strInput, length);
+	strncat(temp, strChange, strlen(strChange));
+	strcat(temp, address + strlen(strTarget));
+	strcpy(strInput, temp);
+
+	printf("%s 위치 주소 : %p\n", strTarget, address);
+	printf("바뀐 문자열 : %s\n", strInput);
+
+	return 0;
+}
+
+void input_string(char* str)
+{
+	char temp[80] = "";
+	fgets(temp, sizeof(temp), stdin);
+	temp[strlen(temp) - 1] = '\0';
+	strcpy(str, temp);
+}
+
+#pragma endregion
 
 //void assign10(void);
 //void assign20(void);
@@ -370,40 +406,40 @@
 //	a = 20;
 //}
 
-void auto_func(void);
-void static_func(void);
-
-int main()
-{
-	int i;
-
-	printf("일반 지역 변수(auto)를 사용한 함수...\n");
-	for(i = 0; i < 3; i++)
-	{
-		auto_func();
-	}
-
-	printf("정적 지역 변수(static)를 사용한 함수...\n");
-	for (i = 0; i < 3; i++)
-	{
-		static_func();
-	}
-
-	return 0;
-}
-
-void auto_func(void)
-{
-	auto int a = 0;
-
-	a++;
-	printf("%d\n", a);
-}
-
-void static_func(void)
-{
-	static int a;
-
-	a++;
-	printf("%d\n", a);
-}
+//void auto_func(void);
+//void static_func(void);
+//
+//int main()
+//{
+//	int i;
+//
+//	printf("일반 지역 변수(auto)를 사용한 함수...\n");
+//	for(i = 0; i < 3; i++)
+//	{
+//		auto_func();
+//	}
+//
+//	printf("정적 지역 변수(static)를 사용한 함수...\n");
+//	for (i = 0; i < 3; i++)
+//	{
+//		static_func();
+//	}
+//
+//	return 0;
+//}
+//
+//void auto_func(void)
+//{
+//	auto int a = 0;
+//
+//	a++;
+//	printf("%d\n", a);
+//}
+//
+//void static_func(void)
+//{
+//	static int a;
+//
+//	a++;
+//	printf("%d\n", a);
+//}
