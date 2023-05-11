@@ -1,2 +1,3 @@
-﻿  20230510.c
-  ConsoleApplication1.vcxproj -> C:\Users\phm33\source\repos\C-Study\ConsoleApplication1\Debug\ConsoleApplication1.exe
+﻿  20230511.c
+D:\Work\C\ConsoleApplication1\20230511.c(23,9): warning C4013: 'time'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
+  ConsoleApplication1.vcxproj -> D:\Work\C\ConsoleApplication1\Debug\ConsoleApplication1.exe
