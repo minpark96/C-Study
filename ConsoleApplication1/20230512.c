@@ -313,8 +313,6 @@
 
 #pragma region 성적 처리 프로그램
 
-
-
 typedef struct Node
 {
 	int num;
@@ -329,6 +327,7 @@ typedef struct Node
 } Node;
 
 void Insert(Node* head);
+void Sort(Node* head, Node* newNode);
 void Print(Node* head);
 void Search(Node* head);
 void End(Node* head);
@@ -350,7 +349,9 @@ int main()
 		printf("2. 출력\n");
 		printf("3. 검색\n");
 		printf("4. 종료\n");
-		scanf("%d%*c", &select);
+		printf("메뉴 선택 : ");
+		scanf("%d%*c", &select); // *c 써야함
+
 		switch (select)
 		{
 		case 1:
@@ -377,6 +378,7 @@ void Insert(Node* head)
 	Node* curr;
 	const int NUM_SUB = 3;
 	int isDuplicated = 1;
+	int isVaild = 0;
 
 	if (newNode == NULL)
 	{
@@ -388,9 +390,9 @@ void Insert(Node* head)
 	{
 		isDuplicated = 0;
 		curr = head;
-		printf("학번 : "); // 중복 체크 반복문 안에 넣어야할듯
+		printf("학번 : ");
 		scanf("%d%*c", &newNode->num);
-		while (curr->next != NULL)
+		while (curr->next != NULL) // 중복 체크
 		{
 			if (curr->next->num == newNode->num)
 			{
@@ -402,51 +404,70 @@ void Insert(Node* head)
 			curr = curr->next;
 		}
 	}
-	
+
 	printf("이름 : ");
 	gets(newNode->name);
-	printf("국어, 영어, 수학 점수 : ");
-	scanf("%d%d%d%*c", &newNode->scoreKor, &newNode->scoreEng, &newNode->scoreMat);
-	// 100점 초과, 0점 미만 예외처리 해야 함
+	while (!isVaild)
+	{
+		printf("국어, 영어, 수학 점수 : ");
+		scanf("%d%d%d%*c", &newNode->scoreKor, &newNode->scoreEng, &newNode->scoreMat);
+		if (newNode->scoreKor > 100 || newNode->scoreKor < 0 || newNode->scoreEng > 100 || newNode->scoreEng < 0 ||
+			newNode->scoreMat > 100 || newNode->scoreMat < 0) // 범위 체크
+		{
+			printf("0 ~ 100 사이의 값을 입력하세요!\n");
+		}
+		else
+		{
+			isVaild = 1;
+		}
+	}
 
 	newNode->scoreTot = newNode->scoreKor + newNode->scoreEng + newNode->scoreMat;
 	newNode->scoreAvg = (double)newNode->scoreTot / (double)NUM_SUB;
-	
+
 	if (newNode->scoreAvg < 70)
-	{
-		node->grade = 'F';
-	}
+		newNode->grade = 'F';
 	else if (newNode->scoreAvg < 80)
-	{
 		newNode->grade = 'C';
-	}
 	else if (newNode->scoreAvg < 90)
-	{
 		newNode->grade = 'B';
-	}
 	else
-	{
 		newNode->grade = 'A';
-	}
 
 	if (head->next == NULL) // 첫 노드일 시
 	{
 		head->next = newNode;
 		newNode->next = NULL;
 	}
-	else // 맨 끝에 추가
+	else // 맨 끝에 정렬하면서 추가
 	{
-		Sort();
-		/*curr = head->next;
-		while (curr->next != NULL) 
+		Sort(head, newNode);
+	}
+}
+
+void Sort(Node* head, Node* newNode)
+{
+	Node* curr, * prev;
+	prev = head;
+	curr = head->next;
+
+	while (curr != NULL)
+	{
+		if (newNode->scoreAvg > curr->scoreAvg)
 		{
+			prev->next = newNode;
+			newNode->next = curr;
+			return;
+		}
+		else
+		{
+			prev = curr;
 			curr = curr->next;
 		}
-		curr->next = newNode;
-		newNode->next = NULL;*/
 	}
 
-
+	prev->next = newNode;
+	newNode->next = NULL;
 }
 
 void Print(Node* head)
@@ -460,7 +481,7 @@ void Print(Node* head)
 	{
 		Node* curr = head->next;
 		while (curr != NULL)
-		{// 정렬 미구현
+		{
 			printf("%4d  %5s  %3d  %3d  %3d  %3d  %.1lf   %c\n",
 				curr->num, curr->name, curr->scoreKor, curr->scoreEng, curr->scoreMat,
 				curr->scoreTot, curr->scoreAvg, curr->grade);
@@ -506,7 +527,7 @@ void End(Node* head)
 {
 	printf("프로그램을 종료합니다!\n");
 	Node* curr;
-	Node* temp;
+	Node* prev;
 	curr = head;
 
 	if (head->next == NULL)
@@ -515,31 +536,13 @@ void End(Node* head)
 	}
 	else
 	{
-		while (curr->next != NULL)
+		while (curr != NULL)
 		{
-			temp = curr;
+			prev = curr;
 			curr = curr->next;
-			free(temp);
-		}
-		free(curr);
-	}
-}
-
-void Sort(Node* head, Node* newNode)
-{
-	Node* curr, max;
-	curr = head->next;
-	max = head->next
-
-	while (curr->next != NULL)
-	{
-		if (curr->scoreAvg > )
-		{
-
+			free(prev);
 		}
 	}
-
 }
-
 
 #pragma endregion
