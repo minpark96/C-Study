@@ -239,18 +239,26 @@ int main()
 	}
 
 	fseek(sfp, 0, SEEK_END);
-	sourceFileSize = ftell(sfp);
+	sourceFileSize = ftell(sfp); // 파일 사이즈 파악
 	fseek(sfp, 0, SEEK_SET);
-	while (destFileSize <= sourceFileSize)
+	while (destFileSize < sourceFileSize)
 	{
-		fread(buffer, copyBytes, 1, sfp);
-		fwrite(buffer, copyBytes, 1, dfp);
-		destFileSize = ftell(dfp);
-		Sleep(10);
+		if (sourceFileSize - destFileSize < copyBytes)
+		{ // 마지막에 destFileSize 사이즈가 sourceFileSize보다 더 커지는걸 방지
+			fread(buffer, sourceFileSize - destFileSize, 1, sfp);
+			fwrite(buffer, sourceFileSize - destFileSize, 1, dfp);
+		}
+		else 
+		{
+			fread(buffer, copyBytes, 1, sfp);
+			fwrite(buffer, copyBytes, 1, dfp);
+		}
+		destFileSize = ftell(dfp); // 복사된 사이즈 파악
+		Sleep(5);
 		system("CLS");
 		printf("원본 파일 : %s\n", sourceFileName);
 		printf("대상 파일 : %s\n", destFileName);
-		printf("복사중... %%%.1lf\n", (double)destFileSize / (double)sourceFileSize * 100);
+		printf("복사중... %.1lf%%\n", (double)destFileSize / (double)sourceFileSize * 100.0);
 	}
 	system("CLS");
 	printf("원본 파일 : %s\n", sourceFileName);
